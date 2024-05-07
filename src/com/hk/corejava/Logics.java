@@ -2,6 +2,7 @@ package com.hk.corejava;
 
 public class Logics {
     public static String reverseStringWithRecursion(String input){
+        System.err.println(input);
         /* Base case: if the input string is empty or has only one character, return it */
         if (input.isEmpty() || input.length() == 1) {
             return input;
