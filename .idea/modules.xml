@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CoreJavaPractice.iml" filepath="$PROJECT_DIR$/CoreJavaPractice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/com/hk/corejava/java9/printer/printer.iml" filepath="$PROJECT_DIR$/src/com/hk/corejava/java9/printer/printer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/com/hk/corejava/java9/provider/provider.iml" filepath="$PROJECT_DIR$/src/com/hk/corejava/java9/provider/provider.iml" />
     </modules>
   </component>
 </project>

@@ -1,17 +1,36 @@
 package com.hk.corejava.java8;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamAPI {
 
     public static void main(String[] args) {
-        demo();
-        createStream();
-        playWithStream();
+//        demo();
+//        createStream();
+//        playWithStream();
+//        List<Integer> output = removeNull(Arrays.asList(1, 2, 3, 4, 5, 6, null, 3, 2, 2, 6, 2, 2, 3, 23, 2, 3, 23, null, 3, 2, 32, 2, 3244232));
+//        HashMap<String,Integer> empCountByDesignation =  createMapFromList1(Employee.dummyData());
+//        System.out.println(empCountByDesignation);
 
+
+        HashMap<String,List<Employee>> empByDesignation =  createMapFromList2(Employee.dummyData());
+        System.out.println("empByDesignation = " + empByDesignation);
+
+    }
+
+    private static HashMap<String, List<Employee>> createMapFromList2(ArrayList<Employee> employees) {
+        return employees.stream().collect(Collectors.groupingBy(Employee::getDesignation,HashMap::new,Collectors.toList()));
+    }
+
+    private static HashMap<String, Integer> createMapFromList(ArrayList<Employee> employees) {
+        return employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDesignation, HashMap::new, Collectors.summingInt(e -> 1)));
+    }
+
+    private static <T> List<T> removeNull(List<T> list) {
+        return list.stream().filter(Objects::nonNull).peek(System.out::print).collect(Collectors.toList());
     }
 
     private static void playWithStream() {
@@ -57,6 +76,11 @@ public class StreamAPI {
         //with stream
         int newSum = Arrays.stream(arr).filter(x -> x % 2 == 0).sum();
         System.out.println("sum : " + newSum);
+    }
+
+
+    private static HashMap<String, Integer> createMapFromList1(ArrayList<Employee> employees) {
+        return employees.stream().collect(Collectors.groupingBy(employee -> employee.getDesignation(),HashMap::new,Collectors.summingInt(e->1)));
     }
 
 

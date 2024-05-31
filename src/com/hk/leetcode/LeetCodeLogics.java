@@ -3,8 +3,26 @@ package com.hk.leetcode;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LeetCodeLogics {
+
+	public int[] topKFrequent1(int[] nums, int k) {
+		Map<Integer, Integer> result = Arrays.stream(nums)
+				.boxed()
+				.collect(Collectors.groupingBy(i -> i, HashMap::new, Collectors.summingInt(i -> 1)));
+		return result.keySet().stream().sorted((i, j) -> result.get(j) - result.get(i)).limit(k).mapToInt(Integer::intValue).toArray();
+	}
+	public int[] topKFrequent(int[] nums, int k) {
+		return Arrays.stream(nums).boxed()
+				.collect(Collectors.groupingBy(i -> i, Collectors.summingInt(i -> 1)))
+				.entrySet().parallelStream()
+				.sorted((e1, e2) -> e2.getValue() - e1.getValue())
+				.limit(k)
+				.mapToInt(Map.Entry::getKey)
+				.toArray();
+	}
 
 	public boolean isPalindrome(int x) {
 		if (x<0)
@@ -19,7 +37,6 @@ public class LeetCodeLogics {
 		while(left<right)
 			if (number.charAt(left++) != number.charAt(right--)) return false;
 		return true;
-
 /*
         String string = Integer.toString(x);
         return string.equals((new StringBuilder(string).reverse().toString()));
@@ -69,24 +86,24 @@ public class LeetCodeLogics {
 				// its either -,+,space
 				switch (ch) {
 				case '-':
-					if (dig == true)
+					if (dig)
 						break first;
-					else if (sign == false) {
+					else if (!sign) {
 						sign = true;
 						neg = true;
 					} else
 						return 0;
 					break;
 				case '+':
-					if (dig == true)
+					if (dig)
 						break first;
-					else if (sign == false)
+					else if (!sign)
 						sign = true;
 					else
 						return 0;
 					break;
 				case ' ':
-					if (dig == true)
+					if (dig)
 						break first;
 					break;
 				default:
