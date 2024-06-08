@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LeetCodeLogics {
+	public boolean isMatch(String s, String p) {
+        return false;
+    }
 
 	public int[] topKFrequent1(int[] nums, int k) {
 		Map<Integer, Integer> result = Arrays.stream(nums)
