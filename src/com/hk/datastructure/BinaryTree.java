@@ -66,6 +66,7 @@ public class BinaryTree<T extends Comparable<T>> {
             int length = nodes.size();
             for (int i = 0; i < length; i++) {
                 Node<T> node = nodes.poll();
+                assert node != null;
                 System.out.print(node.data);
                 if (node.left != null)
                     nodes.offer(node.left);
