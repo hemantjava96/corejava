@@ -5,6 +5,25 @@ import java.util.ArrayList;
 public class Employee {
     private String name;
     private String designation;
+    private Double salary;
+    private String dept;
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
 
     public String getDesignation() {
         return designation;
@@ -19,6 +38,11 @@ public class Employee {
     public Employee(String name, String designation) {
         this.name = name;
         this.designation = designation;
+    }
+
+    public Employee(String dept, Double salary) {
+        this.dept = dept;
+        this.salary = salary;
     }
 
     @Override

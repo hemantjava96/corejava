@@ -35,6 +35,28 @@ public class PredefinedFI {
         BinaryOperator();
     }
 
+
+
+    static class Person {
+        private String name;
+        public Person(String name) {
+            this.name = name;
+        }
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
+    }
+
+
     private static void BinaryOperator() {
         //BinaryOperator FI is a child of BiFunction FI, speciality os this FI is the two method arguments and the return type is same in BinaryOperator
         BinaryOperator<Integer> multiplier = (num1,num2) -> num1*num2;
@@ -160,56 +182,50 @@ public class PredefinedFI {
 
         private static void ConstructorReference() {
             //get Person object from person names
-
             //without Constructor reference
             List<String> strings = Arrays.asList("hemant", "hari", "himesh", "harish", "harshit");
             Function<String, Person> getPersonFromName = str -> new Person(str);
             List<Person> persons = transformStringtoPerson(strings, getPersonFromName);
             System.out.println(persons);
 
-
-            //with Constructor reference, transformStringtoPerson(-,-) takes a Function which takes String as input and returns Person Object as output.
-            // So in java 8 we can refer another constructor which does same thing, takes String as input arg and creates Person object
+            //with Constructor reference
             List<String> names = Arrays.asList("Darshan", "dinesh", "dharma", "daya", "daman");
             List<Person> personList = transformStringtoPerson(strings, Person::new);
             System.out.println(personList);
         }
-
-        static class Person {
-            private String name;
-            public Person(String name) {
-                this.name = name;
+        /**
+         * Transforms a list of strings into a list of {@code Person} objects by applying a given function.
+         *
+         * @param list The list of strings to be transformed into {@code Person} objects. Must not be {@code null}.
+         * @param function A {@code Function<String, Person>} that defines how to convert each string into a {@code Person}.
+         *                 Must not be {@code null}.
+         */
+        private static List<Person> transformStringtoPerson(List<String> list, Function<String, Person> function) {
+            List<Person> transformedList = new ArrayList<>();
+            for (String item : list) {
+                transformedList.add(function.apply(item));
             }
-            public String getName() {
-                return name;
-            }
-            public void setName(String name) {
-                this.name = name;
-            }
-            @Override
-            public String toString() {
-                return "Person{" +
-                        "name='" + name + '\'' +
-                        '}';
-            }
+            return transformedList;
         }
-
         private static void MethodReference() {
             // convert list of String to uppercase
-
             //without method reference
             Function<String, String> toUpper = string -> string.toUpperCase();
             List<String> strings = Arrays.asList("hemant", "hari", "himesh", "harish", "harshit");
             strings = transformStringList(strings, toUpper);
             System.out.println(strings);
 
-            //wit method reference, transformStringList(-,-) takes a Function which takes String as input and returns String as output.
-            // So in java 8 we can refer another method which does same thing, takes String as input and returns string output as an implementations
+            //with method reference
             List<String> names = Arrays.asList("Darshan", "dinesh", "dharma", "daya", "daman");
             names = transformStringList(names, String::toUpperCase);
             System.out.println(names);
         }
-
+        /** Transforms a list of strings by applying a given function to each element.
+         *  @param list The list of strings to be transformed. Must not be {@code null}.
+         *  @param function A {@code Function<String, String>} that defines the transformation to be applied
+         *                   to each string in the list. Must not be {@code null}.
+         *
+         */
         private static List<String> transformStringList(List<String> list, Function<String, String> function) {
             List<String> transformedList = new ArrayList<>();
             for (String item : list) {
@@ -218,12 +234,6 @@ public class PredefinedFI {
             return transformedList;
         }
 
-        private static List<Person> transformStringtoPerson(List<String> list, Function<String, Person> function) {
-            List<Person> transformedList = new ArrayList<>();
-            for (String item : list) {
-                transformedList.add(function.apply(item));
-            }
-            return transformedList;
-        }
+
     }
 }
